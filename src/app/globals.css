@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,8 +21,8 @@ body {
 }
 
 body {
-  background: #0a0a0a;
-  color: #ffffff;
+  background: #0a0d12;
+  color: #d4e1f7;
   line-height: 1.6;
 }
 
@@ -165,25 +167,49 @@ a {
 }
 
 /* Typography */
-.font-space {
-  font-family: 'Space Grotesk', sans-serif;
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
 }
 
 .font-inter {
   font-family: 'Inter', sans-serif;
 }
 
-/* Gradient text */
+/* Cyberpunk Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 50%, #ffffff 100%);
+  background: linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-secondary {
-  background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+  background: linear-gradient(135deg, #9fb8d1 0%, #d4e1f7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Cyberpunk Effects */
+.cyber-glow {
+  box-shadow: 0 0 20px rgba(212, 225, 247, 0.3);
+}
+
+.cyber-border {
+  border: 1px solid rgba(212, 225, 247, 0.2);
+  box-shadow: 0 0 15px rgba(212, 225, 247, 0.1);
+}
+
+.glassmorphism {
+  background: rgba(28, 31, 38, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 225, 247, 0.1);
 }

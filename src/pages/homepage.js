@@ -1,7 +1,6 @@
 "use client"
 import Head from "next/head";
 import {
-  AiFillTwitterCircle,
   AiFillLinkedin,
   AiFillGithub,
   AiFillMail,
@@ -13,7 +12,7 @@ import {
   AiOutlineLink,
   AiOutlineReload,
 } from "react-icons/ai";
-import { BsFillMoonStarsFill, BsCodeSlash, BsGearFill, BsGraphUp, BsPlayFill } from "react-icons/bs";
+import { BsFillMoonStarsFill, BsCodeSlash, BsGearFill, BsGraphUp, BsPlayFill, BsDribbble } from "react-icons/bs";
 import { FaEthereum, FaReact, FaNodeJs, FaRust, FaAws, FaCode, FaDatabase, FaCloud, FaBrain, FaRobot, FaGlobe, FaDocker, FaJava, FaPython, FaCuttlefish } from "react-icons/fa";
 import { SiSolidity, SiNextdotjs, SiMongodb, SiMysql, SiDocker, SiTypescript, SiJavascript, SiPhp, SiCplusplus, SiGo, SiDjango, SiKubernetes, SiCsharp, SiGooglecloud } from "react-icons/si";
 import { TbBrandReact, TbBrandJavascript, TbBrandRust, TbBrandMongodb, TbNetwork } from "react-icons/tb";
@@ -34,298 +33,474 @@ import web6 from "../../public/web6.png";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
+  const [activeSection, setActiveSection] = useState('hero');
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
+  // Advanced background with multiple layers
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.1, 0.05]);
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
-      {/* Background */}
+    <div className="min-h-screen bg-[#0a0d12] text-[#d4e1f7] overflow-x-hidden font-inter">
+      {/* Advanced Cyberpunk Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gray-900"></div>
+        <div className="absolute inset-0 bg-[#0a0d12]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0d12] via-[#0f1419] to-[#0a0d12]"></div>
+        
+        {/* Animated gradient overlay */}
+        <motion.div 
+          style={{ y: backgroundY, opacity: backgroundOpacity }}
+          className="absolute inset-0 bg-gradient-to-r from-[#d4e1f7]/5 via-[#9fb8d1]/3 to-[#d4e1f7]/5"
+        />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(212,225,247,0.1)_0%,transparent_50%)]"></div>
+          <div 
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(212, 225, 247, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 225, 247, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px'
+            }}
+          />
+        </div>
+        
+        {/* Floating particles effect */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-[#d4e1f7] rounded-full opacity-30"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
       </div>
+
+      {/* Navigation */}
+      <motion.nav 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-[#0a0d12]/80 backdrop-blur-md border-b border-[#d4e1f7]/10"
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-3 text-[#d4e1f7] cursor-pointer"
+          >
+            <div className="w-8 h-8 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-lg flex items-center justify-center">
+              <AiOutlineCode className="text-[#0a0d12] text-lg" />
+            </div>
+            <span className="text-lg font-semibold font-poppins">Pranay</span>
+          </motion.div>
+          
+          <div className="hidden md:flex items-center gap-8">
+            {['About', 'Tech', 'Projects', 'Contact'].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                whileHover={{ scale: 1.1 }}
+                className="text-[#9fb8d1] hover:text-[#d4e1f7] transition-colors font-montserrat text-sm font-medium"
+              >
+                {item}
+              </motion.a>
+            ))}
+          </div>
+          
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-4 py-2 bg-[#2a2e38] border border-[#d4e1f7]/20 rounded-lg text-[#d4e1f7] hover:border-[#d4e1f7]/40 transition-colors text-sm font-medium"
+          >
+            Resume
+          </motion.button>
+        </div>
+      </motion.nav>
   
       <main className="relative z-10">
-        {/* Navigation */}
-        <motion.nav 
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 sm:py-6 bg-gray-900/80 backdrop-blur-sm border-b border-gray-800"
-        >
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2 text-white"
-            >
-              <AiOutlineCode className="text-xl sm:text-2xl" />
-              <span className="text-base sm:text-lg font-medium">Pranay&apos;s</span>
-            </motion.div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-3 sm:px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-xs sm:text-sm hover:bg-gray-700 transition-colors"
-            >
-              <span className="hidden sm:inline">View GitHub</span>
-              <span className="sm:hidden">GitHub</span>
-            </motion.button>
-          </div>
-        </motion.nav>
-
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 sm:px-8 pt-16 sm:pt-20">
+        <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 relative pt-16 sm:pt-20">
           <div className="max-w-7xl mx-auto text-center">
-            {/* Main Title */}
+            {/* Welcome Text */}
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-6 sm:mb-8"
+            >
+              <p className="text-[#9fb8d1] text-base sm:text-lg font-montserrat tracking-wide">Welcome to</p>
+            </motion.div>
+
+            {/* Separator Line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="w-16 sm:w-24 h-px bg-[#d4e1f7] mx-auto mb-6 sm:mb-8"
+            />
+
+            {/* Main Name */}
             <motion.h1 
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4"
+              transition={{ duration: 1, delay: 0.7 }}
+              className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-[#d4e1f7] mb-6 sm:mb-8 font-poppins tracking-wider"
+              style={{
+                textShadow: '0 0 20px rgba(212, 225, 247, 0.3)',
+                background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
             >
               Pranay&apos;s
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Developer Portfolio */}
             <motion.h2 
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-xl sm:text-2xl md:text-3xl font-medium text-white mb-2"
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-[#d4e1f7] mb-4 sm:mb-6 font-poppins tracking-wide"
+              style={{
+                textShadow: '0 0 15px rgba(212, 225, 247, 0.2)'
+              }}
             >
               Developer Portfolio
             </motion.h2>
 
-            {/* Description */}
+            {/* Tagline */}
             <motion.p 
-              initial={{ y: 30, opacity: 0 }}
+              initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="text-base sm:text-lg md:text-xl text-white/80 mb-8 sm:mb-16 px-4"
+              transition={{ duration: 0.8, delay: 1.1 }}
+              className="text-[#9fb8d1] text-base sm:text-lg font-inter mb-12 sm:mb-16"
             >
-              Blockchain & Full Stack Developer | Converting ideas into scalable applications
+              Converting caffeine into code
             </motion.p>
 
-            {/* Social Links */}
+            {/* Social Links - Simple and Clean */}
             <motion.div 
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="flex justify-center gap-4 sm:gap-8 p-4 sm:p-6 border border-blue-500/30 rounded-lg bg-blue-500/10 backdrop-blur-sm mx-4 sm:mx-0"
-            >
-              <motion.a 
-                whileHover={{ scale: 1.2 }}
-                href="#" 
-                className="text-xl sm:text-2xl text-white hover:text-blue-400 transition-colors"
-              >
-                <AiFillGithub />
-              </motion.a>
-              <motion.a 
-                whileHover={{ scale: 1.2 }}
-                href="#" 
-                className="text-xl sm:text-2xl text-white hover:text-blue-400 transition-colors"
-              >
-                <AiFillLinkedin />
-              </motion.a>
-              <motion.a 
-                whileHover={{ scale: 1.2 }}
-                href="#" 
-                className="text-xl sm:text-2xl text-white hover:text-blue-400 transition-colors"
-              >
-                <AiFillMail />
-              </motion.a>
-              <motion.a 
-                whileHover={{ scale: 1.2 }}
-                  href="#"
-                className="text-xl sm:text-2xl text-white hover:text-blue-400 transition-colors"
-              >
-                <FaGlobe />
-              </motion.a>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Services Flow Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto">
-            <motion.div 
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-2"
+              transition={{ duration: 0.8, delay: 1.3 }}
+              className="flex justify-center gap-6 sm:gap-8"
             >
               {[
-                { icon: FaCode, label: "Blockchain Development" },
-                { icon: FaReact, label: "Full Stack Development" },
-                { icon: FaDatabase, label: "Smart Contracts" },
-                { icon: FaBrain, label: "Web3 Integration" },
-                { icon: FaCloud, label: "AI Integration" }
-              ].map((service, index) => (
-                <motion.div 
+                { icon: AiFillGithub, href: "#", label: "GitHub" },
+                { icon: AiFillLinkedin, href: "#", label: "LinkedIn" },
+                { icon: AiFillMail, href: "#", label: "Email" },
+                { icon: BsDribbble, href: "#", label: "Dribbble" }
+              ].map((social, index) => (
+                <motion.a 
                   key={index}
-                  initial={{ y: 50, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center"
+                  whileHover={{ 
+                    scale: 1.2,
+                    y: -2
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="text-xl sm:text-2xl text-[#d4e1f7] hover:text-[#9fb8d1] transition-colors duration-300"
                 >
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gray-800 rounded-lg p-3 sm:p-4 border border-blue-500/30 hover:border-blue-500/50 transition-colors"
-                  >
-                    <service.icon className="text-xl sm:text-2xl text-white mb-2" />
-                    <p className="text-xs sm:text-sm text-white/80 text-center">{service.label}</p>
-                  </motion.div>
-                  {index < 4 && (
-                    <div className="hidden sm:flex items-center mx-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <div className="w-8 h-0.5 bg-blue-500/50"></div>
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    </div>
-                  )}
-                </motion.div>
+                  <social.icon />
+                </motion.a>
               ))}
             </motion.div>
           </div>
         </section>
-        {/* About Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
-          <div className="max-w-4xl mx-auto">
-            <motion.div 
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <p className="text-base sm:text-lg text-white/80 leading-relaxed px-4">
-                Results-driven Blockchain and Full Stack Developer with 4 years of experience in building scalable applications and microservices. Proficient in developing user-friendly interfaces using React.js and integrating Web3 functionalities for blockchain applications. Demonstrated expertise in implementing smart contracts using Solidity and Rust, optimizing database queries, and deploying cloud-based solutions. Skilled in developing decentralized applications on blockchain platforms like Ethereum and Solana. Proven ability to collaborate with cross-functional teams to deliver innovative technical solutions.
-              </p>
-            </motion.div>
-            </div>
-        </section>
-        {/* Tech Stack Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
+
+        {/* Tech Grid Section */}
+        <section id="tech" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative">
           <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-center mb-8 sm:mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-8">Tech Stack</h2>
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="inline-block"
+              >
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d4e1f7] mb-4 font-poppins tracking-wide"
+                    style={{
+                      textShadow: '0 0 20px rgba(212, 225, 247, 0.3)',
+                      background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                >
+                  Tech Stack
+                </h2>
+                <motion.div
+                  className="w-20 sm:w-24 h-1 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-full mx-auto"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+              <motion.p 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="text-[#9fb8d1] text-base sm:text-lg mt-4 sm:mt-6 max-w-2xl mx-auto font-inter px-4"
+              >
+                Technologies I work with to build innovative solutions
+              </motion.p>
             </motion.div>
             
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-4">
+            {/* Enhanced Tech Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
               {[
-                { icon: FaRust, label: "Rust" },
+                { icon: FaAws, label: "AWS" },
+                { icon: FaReact, label: "React" },
+                { icon: FaPython, label: "Python" },
+                { icon: SiDjango, label: "Django" },
+                { icon: SiCplusplus, label: "C++" },
+                { icon: FaDocker, label: "Docker" },
+                { icon: SiKubernetes, label: "Kubernetes" },
                 { icon: SiJavascript, label: "JavaScript" },
                 { icon: SiTypescript, label: "TypeScript" },
-                { icon: SiPhp, label: "PHP" },
-                { icon: SiSolidity, label: "Solidity" },
-                { icon: FaReact, label: "React.js" },
-                { icon: SiNextdotjs, label: "Next.js" },
+                { icon: FaNodeJs, label: "Node.js" },
                 { icon: SiMongodb, label: "MongoDB" },
                 { icon: SiMysql, label: "MySQL" },
-                { icon: FaNodeJs, label: "Node.js" },
-                { icon: FaAws, label: "AWS" },
-                { icon: FaDocker, label: "Docker" },
+                { icon: SiNextdotjs, label: "Next.js" },
+                { icon: FaRust, label: "Rust" },
+                { icon: SiPhp, label: "PHP" },
+                { icon: SiSolidity, label: "Solidity" },
                 { icon: FaEthereum, label: "Ethereum" },
                 { icon: TbNetwork, label: "Web3" },
                 { icon: FaCloud, label: "Cloud" },
-                { icon: HiOutlineChip, label: "Hardhat" },
-                { icon: BsGraphUp, label: "Truffle" },
-                { icon: FaBrain, label: "IPFS" },
-                { icon: HiOutlineLightningBolt, label: "Chainlink" },
-                { icon: HiOutlineGlobe, label: "NFTs" },
-                { icon: FaRobot, label: "Staking" },
-                { icon: FaDatabase, label: "Redux" },
-                { icon: SiCplusplus, label: "Material UI" },
-                { icon: SiGooglecloud, label: "Yew" },
-                { icon: SiDjango, label: "Express.js" },
-                { icon: SiKubernetes, label: "NestJS" },
-                { icon: FaJava, label: "Jest" },
-                { icon: SiCsharp, label: "Laravel" },
-                { icon: SiGo, label: "Git" },
-                { icon: FaPython, label: "RESTful APIs" }
+                { icon: HiOutlineChip, label: "AI" },
+                { icon: BsGraphUp, label: "Analytics" },
+                { icon: FaBrain, label: "ML" },
+                { icon: HiOutlineLightningBolt, label: "Fast" },
+                { icon: HiOutlineGlobe, label: "Global" },
+                { icon: FaRobot, label: "Auto" },
+                { icon: FaDatabase, label: "DB" },
+                { icon: SiCsharp, label: "C#" },
+                { icon: SiGo, label: "Go" },
+                { icon: SiGooglecloud, label: "GCP" },
+                { icon: FaJava, label: "Java" }
               ].map((tech, index) => (
                 <motion.div 
                   key={index}
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: index * 0.05 }}
+                  transition={{ duration: 0.8, delay: index * 0.03 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-gray-800 rounded-lg p-2 sm:p-4 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -5,
+                    transition: { duration: 0.3, ease: "easeOut" }
+                  }}
+                  className="group relative cursor-pointer"
                 >
-                  <tech.icon className="text-lg sm:text-2xl text-white mx-auto mb-1 sm:mb-2" />
-                  <p className="text-xs text-white/80 text-center">{tech.label}</p>
+                  <div className="bg-[#1c1f26] rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 border border-[#d4e1f7]/20 hover:border-[#d4e1f7]/40 transition-all duration-300 backdrop-blur-sm h-full flex flex-col items-center justify-center"
+                       style={{
+                         boxShadow: '0 0 20px rgba(212, 225, 247, 0.1), inset 0 1px 0 rgba(212, 225, 247, 0.1)'
+                       }}
+                  >
+                    <motion.div
+                      whileHover={{ 
+                        scale: 1.2,
+                        rotate: [0, -10, 10, 0],
+                        transition: { duration: 0.4 }
+                      }}
+                      className="mb-2 sm:mb-3"
+                    >
+                      <tech.icon className="text-xl sm:text-2xl md:text-3xl text-[#d4e1f7] group-hover:text-[#9fb8d1] transition-colors duration-300"
+                                 style={{
+                                   filter: 'drop-shadow(0 0 10px rgba(212, 225, 247, 0.3))'
+                                 }}
+                      />
+                    </motion.div>
+                    <p className="text-xs sm:text-sm text-[#9fb8d1] text-center font-montserrat font-medium group-hover:text-[#d4e1f7] transition-colors duration-300">
+                      {tech.label}
+                    </p>
+            </div>
+                  
+                  {/* Enhanced hover effects */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#d4e1f7]/10 to-[#9fb8d1]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_center,rgba(212,225,247,0.1)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                       style={{
+                         boxShadow: '0 0 30px rgba(212, 225, 247, 0.2)'
+                       }}
+                  />
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
-        {/* Interactive Element */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
-          <div className="max-w-4xl mx-auto">
+        {/* About Section */}
+        <section id="about" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative">
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-gray-800 rounded-2xl p-4 sm:p-8 border border-blue-500/30"
+              className="text-center mb-12 sm:mb-16"
             >
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
-                <div className="h-6 sm:h-8 bg-gray-700 rounded border-2 border-dashed border-gray-600"></div>
-                <div className="h-6 sm:h-8 bg-gray-700 rounded border-2 border-dashed border-gray-600"></div>
-                <div className="h-6 sm:h-8 bg-gray-700 rounded border-2 border-dashed border-gray-600"></div>
-              </div>
-              <div className="flex justify-center items-center mb-4 sm:mb-6">
-                <div className="w-16 h-16 sm:w-24 sm:h-24 bg-gray-700 rounded-full flex items-center justify-center border border-blue-500/50">
-                  <AiOutlineCode className="text-xl sm:text-3xl text-white" />
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="ml-2 sm:ml-4 w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-full flex items-center justify-center"
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="inline-block"
+              >
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d4e1f7] mb-4 font-poppins tracking-wide"
+                    style={{
+                      textShadow: '0 0 20px rgba(212, 225, 247, 0.3)',
+                      background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
                 >
-                  <BsPlayFill className="text-white text-lg sm:text-xl" />
-                </motion.button>
-              </div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-4">
-                <div className="h-4 sm:h-6 bg-gray-700 rounded border-2 border-dashed border-gray-600"></div>
-                <div className="h-4 sm:h-6 bg-gray-700 rounded border-2 border-dashed border-gray-600"></div>
+                  About
+                </h2>
+                <motion.div
+                  className="w-20 sm:w-24 h-1 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-full mx-auto"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="bg-[#1c1f26]/50 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 border border-[#d4e1f7]/20 shadow-2xl"
+                   style={{
+                     boxShadow: '0 0 40px rgba(212, 225, 247, 0.1), inset 0 1px 0 rgba(212, 225, 247, 0.1)'
+                   }}
+              >
+                <div className="relative z-10">
+                  <p className="text-sm sm:text-base md:text-lg text-[#d4e1f7] leading-relaxed font-inter"
+                     style={{
+                       textShadow: '0 0 10px rgba(212, 225, 247, 0.2)'
+                     }}
+                  >
+                    Results-driven <span className="text-[#9fb8d1] font-semibold">Blockchain and Full Stack Developer</span> with 4 years of experience in building scalable applications and microservices. Proficient in developing user-friendly interfaces using <span className="text-[#9fb8d1] font-semibold">React.js</span> and integrating <span className="text-[#9fb8d1] font-semibold">Web3 functionalities</span> for blockchain applications.
+                  </p>
+                  <br />
+                  <p className="text-sm sm:text-base md:text-lg text-[#d4e1f7] leading-relaxed font-inter"
+                     style={{
+                       textShadow: '0 0 10px rgba(212, 225, 247, 0.2)'
+                     }}
+                  >
+                    Demonstrated expertise in implementing smart contracts using <span className="text-[#9fb8d1] font-semibold">Solidity and Rust</span>, optimizing database queries, and deploying cloud-based solutions. Skilled in developing decentralized applications on blockchain platforms like <span className="text-[#9fb8d1] font-semibold">Ethereum and Solana</span>. Proven ability to collaborate with cross-functional teams to deliver innovative technical solutions.
+                  </p>
+                </div>
+                
+                {/* Glowing background effect */}
+                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#d4e1f7]/5 via-[#9fb8d1]/5 to-[#d4e1f7]/5 opacity-50"></div>
+                <div className="absolute top-0 left-0 w-full h-full rounded-2xl sm:rounded-3xl bg-[radial-gradient(circle_at_50%_50%,rgba(212,225,247,0.1)_0%,transparent_70%)]"></div>
               </div>
             </motion.div>
           </div>
         </section>
-
         {/* Projects Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
+        <section id="projects" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative">
           <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-center mb-8 sm:mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-8">Projects</h2>
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="inline-block"
+              >
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d4e1f7] mb-4 font-poppins tracking-wide"
+                    style={{
+                      textShadow: '0 0 20px rgba(212, 225, 247, 0.3)',
+                      background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                >
+                  Projects
+                </h2>
+                <motion.div
+                  className="w-20 sm:w-24 h-1 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-full mx-auto"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+              <motion.p 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="text-[#9fb8d1] text-base sm:text-lg mt-4 sm:mt-6 max-w-2xl mx-auto font-inter px-4"
+              >
+                Featured projects showcasing my expertise in blockchain and full-stack development
+              </motion.p>
             </motion.div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {[
                 {
                   title: "RWA Tokenization Platform",
-                  description: "Real-world asset tokenization on Solana blockchain with Rust smart contracts and React frontend"
+                  description: "Real-world asset tokenization on Solana blockchain with Rust smart contracts and React frontend",
+                  icon: FaEthereum
                 },
                 {
                   title: "NFT Marketplace",
-                  description: "Full-stack NFT marketplace with Web3 wallet integration and real-time transaction events"
+                  description: "Full-stack NFT marketplace with Web3 wallet integration and real-time transaction events",
+                  icon: TbNetwork
                 },
                 {
                   title: "AI-Agents Platform",
-                  description: "Multi-purpose AI agent platform on Solana with token-gated AI personas and OpenAI integration"
+                  description: "Multi-purpose AI agent platform on Solana with token-gated AI personas and OpenAI integration",
+                  icon: FaRobot
                 }
               ].map((project, index) => (
                 <motion.div 
@@ -334,188 +509,303 @@ export default function Home() {
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="bg-gray-800 rounded-lg p-4 sm:p-6 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.05,
+                    rotateY: 5,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="group relative"
                 >
-                  <div className="w-full h-24 sm:h-32 bg-gray-700 rounded mb-3 sm:mb-4 flex items-center justify-center">
-                    <FaEthereum className="text-3xl sm:text-4xl text-blue-400" />
-                  </div>
-                  <div className="space-y-2 mb-3 sm:mb-4">
-                    <h3 className="text-white font-semibold text-sm sm:text-base">{project.title}</h3>
-                    <p className="text-white/70 text-xs sm:text-sm">{project.description}</p>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <AiOutlineLink className="text-white text-lg sm:text-xl hover:text-blue-400 transition-colors cursor-pointer" />
-                    <AiOutlineReload className="text-white text-lg sm:text-xl hover:text-blue-400 transition-colors cursor-pointer" />
-                  </div>
+                  <div className="bg-[#1c1f26] rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-[#d4e1f7]/20 hover:border-[#d4e1f7]/40 transition-all duration-300 backdrop-blur-sm h-full"
+                       style={{
+                         boxShadow: '0 0 30px rgba(212, 225, 247, 0.1), inset 0 1px 0 rgba(212, 225, 247, 0.1)'
+                       }}
+                  >
+                    <div className="w-full h-24 sm:h-32 md:h-40 bg-[#2a2e38] rounded-lg sm:rounded-xl mb-4 sm:mb-6 flex items-center justify-center border border-[#d4e1f7]/20">
+                      <project.icon className="text-3xl sm:text-4xl md:text-5xl text-[#d4e1f7] group-hover:text-[#9fb8d1] transition-colors duration-300"
+                                   style={{
+                                     filter: 'drop-shadow(0 0 15px rgba(212, 225, 247, 0.4))'
+                                   }}
+                      />
+                    </div>
+                    <div className="space-y-3 sm:space-y-4">
+                      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[#d4e1f7] font-poppins"
+                          style={{
+                            textShadow: '0 0 10px rgba(212, 225, 247, 0.2)'
+                          }}
+                      >
+                        {project.title}
+              </h3>
+                      <p className="text-xs sm:text-sm md:text-base text-[#9fb8d1] leading-relaxed font-inter">
+                        {project.description}
+                      </p>
+                    </div>
+                    <div className="flex justify-end gap-2 sm:gap-3 mt-4 sm:mt-6">
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-2 rounded-lg bg-[#2a2e38] border border-[#d4e1f7]/20 hover:border-[#d4e1f7]/40 transition-colors cursor-pointer"
+                      >
+                        <AiOutlineLink className="text-[#d4e1f7] text-base sm:text-lg" />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-2 rounded-lg bg-[#2a2e38] border border-[#d4e1f7]/20 hover:border-[#d4e1f7]/40 transition-colors cursor-pointer"
+                      >
+                        <AiOutlineReload className="text-[#d4e1f7] text-base sm:text-lg" />
+                      </motion.div>
+            </div>
+            </div>
+                  
+                  {/* Glowing background effect */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4e1f7]/5 via-[#9fb8d1]/5 to-[#d4e1f7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Experience & Education Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto">
+
+        {/* Contact Section */}
+        <section id="contact" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative">
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-center mb-8 sm:mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-8">Experience & Education</h2>
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="inline-block"
+              >
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d4e1f7] mb-4 font-poppins tracking-wide"
+                    style={{
+                      textShadow: '0 0 20px rgba(212, 225, 247, 0.3)',
+                      background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                >
+                  Contact
+                </h2>
+                <motion.div
+                  className="w-20 sm:w-24 h-1 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-full mx-auto"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+              <motion.p 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="text-[#9fb8d1] text-base sm:text-lg mt-4 sm:mt-6 max-w-2xl mx-auto font-inter px-4"
+              >
+                Let&apos;s collaborate and build something amazing together
+              </motion.p>
             </motion.div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12">
-              <motion.div 
-                initial={{ x: -50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="bg-gray-800 rounded-lg p-4 sm:p-8 border border-blue-500/30"
-              >
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Professional Experience</h3>
-                <div className="space-y-4 sm:space-y-6">
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-white">Full Stack Blockchain Developer</h4>
-                    <p className="text-blue-400 text-xs sm:text-sm mb-2">Blocsys Technologies Pvt. Ltd. | Feb 2022 - Present</p>
-                    <ul className="text-white/80 text-xs sm:text-sm space-y-1">
-                      <li>• Integrated third-party Quest services using NestJS</li>
-                      <li>• Developed modern UI designs with Web3 functionalities</li>
-                      <li>• Implemented OAuth for social login functionality</li>
-                      <li>• Created in-house quest offers and admin panel</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-white">Web Developer</h4>
-                    <p className="text-blue-400 text-xs sm:text-sm mb-2">Zummit Info Labs | Jun 2021 - Jan 2022</p>
-                    <ul className="text-white/80 text-xs sm:text-sm space-y-1">
-                      <li>• Developed user interface for login page</li>
-                      <li>• Integrated login API for secure authentication</li>
-                      <li>• Created interactive pages for interview questions</li>
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ x: 50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="bg-gray-800 rounded-lg p-4 sm:p-8 border border-blue-500/30"
-              >
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Education & Skills</h3>
-                <div className="space-y-4 sm:space-y-6">
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-white">Education</h4>
-                    <p className="text-blue-400 text-xs sm:text-sm mb-2">Bachelor of Electronics and Telecommunication Engineering</p>
-                    <p className="text-white/80 text-xs sm:text-sm">Savitribai Phule Pune University | 2021</p>
-                  </div>
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-white">Key Projects</h4>
-                    <ul className="text-white/80 text-xs sm:text-sm space-y-1">
-                      <li>• RWA Tokenization Platform</li>
-                      <li>• NFT Marketplace</li>
-                      <li>• Staking & Farming Pools</li>
-                      <li>• IDO/IGO Launchpad</li>
-                      <li>• Telegram Mini-App Bot</li>
-                      <li>• AI-Agents Platform</li>
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section className="py-12 sm:py-24 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+              {/* Contact Info */}
               <motion.div 
                 initial={{ x: -50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
+                className="space-y-6"
               >
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
-                  Feel free to fill up your details, I will reach out to you asap
-                </h2>
-                <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
-                  <div className="flex items-center gap-3 text-white/80">
-                    <AiFillPhone className="text-lg sm:text-xl" />
-                    <span className="text-sm sm:text-base">+91 8551804412</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/80">
-                    <AiFillMail className="text-lg sm:text-xl" />
-                    <span className="text-sm sm:text-base">pranayofficial09@gmail.com</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/80">
-                    <span className="text-lg sm:text-xl">📍</span>
-                    <span className="text-sm sm:text-base">Pune, Maharashtra, India</span>
+                <div className="bg-[#1c1f26]/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-[#d4e1f7]/20"
+                     style={{
+                       boxShadow: '0 0 30px rgba(212, 225, 247, 0.1), inset 0 1px 0 rgba(212, 225, 247, 0.1)'
+                     }}
+                >
+                  <h3 className="text-xl sm:text-2xl font-semibold text-[#d4e1f7] mb-6 font-poppins"
+                      style={{
+                        textShadow: '0 0 10px rgba(212, 225, 247, 0.2)'
+                      }}
+                  >
+                    Get in Touch
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 text-[#9fb8d1]">
+                      <div className="p-2 rounded-lg bg-[#2a2e38] border border-[#d4e1f7]/20">
+                        <AiFillPhone className="text-[#d4e1f7] text-lg" />
+                      </div>
+                      <span className="text-sm sm:text-base">+91 8551804412</span>
+                    </div>
+                    <div className="flex items-center gap-4 text-[#9fb8d1]">
+                      <div className="p-2 rounded-lg bg-[#2a2e38] border border-[#d4e1f7]/20">
+                        <AiFillMail className="text-[#d4e1f7] text-lg" />
+                      </div>
+                      <span className="text-sm sm:text-base">pranayofficial09@gmail.com</span>
+                    </div>
+                    <div className="flex items-center gap-4 text-[#9fb8d1]">
+                      <div className="p-2 rounded-lg bg-[#2a2e38] border border-[#d4e1f7]/20">
+                        <span className="text-[#d4e1f7] text-lg">📍</span>
+                      </div>
+                      <span className="text-sm sm:text-base">Pune, Maharashtra, India</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
               
+              {/* Contact Form */}
               <motion.div 
                 initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="space-y-4 sm:space-y-6"
+                className="bg-[#1c1f26]/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-[#d4e1f7]/20"
+                style={{
+                  boxShadow: '0 0 30px rgba(212, 225, 247, 0.1), inset 0 1px 0 rgba(212, 225, 247, 0.1)'
+                }}
               >
-                <div>
-                  <label className="block text-white/80 text-xs sm:text-sm mb-2">Your name</label>
-                  <input 
-                    type="text" 
-                    className="w-full p-2 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/80 text-xs sm:text-sm mb-2">Whatsapp No.</label>
-                  <input 
-                    type="tel" 
-                    className="w-full p-2 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base"
-                    placeholder="+91 8551804412"
-                    defaultValue="+91 8551804412"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/80 text-xs sm:text-sm mb-2">Email Address</label>
-                  <input 
-                    type="email" 
-                    className="w-full p-2 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none text-sm sm:text-base"
-                    placeholder="pranayofficial09@gmail.com"
-                    defaultValue="pranayofficial09@gmail.com"
-                  />
-                </div>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full p-2 sm:p-3 bg-gray-800 border border-blue-500/30 rounded-lg text-white hover:border-blue-500/50 transition-colors text-sm sm:text-base"
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#d4e1f7] mb-6 font-poppins"
+                    style={{
+                      textShadow: '0 0 10px rgba(212, 225, 247, 0.2)'
+                    }}
                 >
-                  Let&apos;s schedule a meet
-                </motion.button>
+                  Send Message
+                </h3>
+                <form className="space-y-4 sm:space-y-6">
+                  <div>
+                    <label className="block text-[#9fb8d1] text-sm mb-2 font-montserrat">Name</label>
+                    <input 
+                      type="text" 
+                      className="w-full p-3 sm:p-4 bg-[#2a2e38] border border-[#d4e1f7]/20 rounded-xl text-[#d4e1f7] focus:border-[#d4e1f7]/40 focus:outline-none text-sm sm:text-base transition-colors"
+                      placeholder="Enter your name"
+                      style={{
+                        boxShadow: '0 0 10px rgba(212, 225, 247, 0.1)'
+                      }}
+                    />
+                  </div>
+          <div>
+                    <label className="block text-[#9fb8d1] text-sm mb-2 font-montserrat">Email</label>
+                    <input 
+                      type="email" 
+                      className="w-full p-3 sm:p-4 bg-[#2a2e38] border border-[#d4e1f7]/20 rounded-xl text-[#d4e1f7] focus:border-[#d4e1f7]/40 focus:outline-none text-sm sm:text-base transition-colors"
+                      placeholder="Enter your email"
+                      style={{
+                        boxShadow: '0 0 10px rgba(212, 225, 247, 0.1)'
+                      }}
+                    />
+          </div>
+                  <div>
+                    <label className="block text-[#9fb8d1] text-sm mb-2 font-montserrat">WhatsApp</label>
+                    <input 
+                      type="tel" 
+                      className="w-full p-3 sm:p-4 bg-[#2a2e38] border border-[#d4e1f7]/20 rounded-xl text-[#d4e1f7] focus:border-[#d4e1f7]/40 focus:outline-none text-sm sm:text-base transition-colors"
+                      placeholder="Enter your WhatsApp number"
+                      style={{
+                        boxShadow: '0 0 10px rgba(212, 225, 247, 0.1)'
+                      }}
+              />
+            </div>
+                  <div>
+                    <label className="block text-[#9fb8d1] text-sm mb-2 font-montserrat">Message</label>
+                    <textarea 
+                      rows={4}
+                      className="w-full p-3 sm:p-4 bg-[#2a2e38] border border-[#d4e1f7]/20 rounded-xl text-[#d4e1f7] focus:border-[#d4e1f7]/40 focus:outline-none text-sm sm:text-base transition-colors resize-none"
+                      placeholder="Enter your message"
+                      style={{
+                        boxShadow: '0 0 10px rgba(212, 225, 247, 0.1)'
+                      }}
+                    />
+                  </div>
+                  <motion.button 
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: '0 0 30px rgba(205, 214, 232, 0.4)'
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full p-3 sm:p-4 bg-[#2a2e38] border border-[#cdd6e8]/30 rounded-xl text-[#d4e1f7] hover:border-[#cdd6e8]/50 transition-all duration-300 text-sm sm:text-base font-semibold font-montserrat"
+                    style={{
+                      boxShadow: '0 0 20px rgba(205, 214, 232, 0.2)',
+                      background: 'linear-gradient(135deg, #2a2e38 0%, #3a3e48 100%)'
+                    }}
+                  >
+                    Let&apos;s schedule a meet
+                  </motion.button>
+                </form>
               </motion.div>
             </div>
           </div>
         </section>
 
+        {/* Progress Indicator */}
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1 bg-[#d4e1f7]/20 z-50"
+          style={{ scaleX: scrollYProgress }}
+        />
 
         {/* Footer */}
-        <footer className="py-8 sm:py-12 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto text-center">
+        <footer className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-[#d4e1f7]/10">
+          <div className="max-w-7xl mx-auto">
             <motion.div 
               initial={{ y: 30, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-white"
+              className="text-center"
             >
-              <p className="text-base sm:text-lg mb-2">Bye</p>
-              <p className="text-xs sm:text-sm text-white/60">Do Visit Again</p>
+              <div className="mb-6 sm:mb-8">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="inline-flex items-center gap-2 sm:gap-3 text-[#d4e1f7] mb-3 sm:mb-4"
+                >
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-[#d4e1f7] to-[#9fb8d1] rounded-lg flex items-center justify-center">
+                    <AiOutlineCode className="text-[#0a0d12] text-sm sm:text-lg" />
+            </div>
+                  <span className="text-base sm:text-lg font-semibold font-poppins">Pranay</span>
+                </motion.div>
+                <p className="text-base sm:text-lg md:text-xl mb-2 font-poppins font-semibold"
+                   style={{
+                     textShadow: '0 0 10px rgba(212, 225, 247, 0.3)',
+                     background: 'linear-gradient(135deg, #d4e1f7 0%, #9fb8d1 100%)',
+                     WebkitBackgroundClip: 'text',
+                     WebkitTextFillColor: 'transparent',
+                     backgroundClip: 'text'
+                   }}
+                >
+                  Bye
+                </p>
+                <p className="text-xs sm:text-sm md:text-base text-[#9fb8d1] font-montserrat mb-4 sm:mb-6">Do Visit Again</p>
+            </div>
+              
+              {/* Social Links */}
+              <div className="flex justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+                {[
+                  { icon: AiFillGithub, href: "#", label: "GitHub" },
+                  { icon: AiFillLinkedin, href: "#", label: "LinkedIn" },
+                  { icon: AiFillMail, href: "#", label: "Email" },
+                  { icon: BsDribbble, href: "#", label: "Dribbble" }
+                ].map((social, index) => (
+                  <motion.a
+                    key={index}
+                    whileHover={{ scale: 1.2, y: -2 }}
+                    whileTap={{ scale: 0.9 }}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="text-[#9fb8d1] hover:text-[#d4e1f7] transition-colors duration-300"
+                  >
+                    <social.icon className="text-lg sm:text-xl" />
+                  </motion.a>
+                ))}
+            </div>
+              
+              <div className="text-xs sm:text-sm text-[#9fb8d1]/60 font-montserrat">
+                © 2024 Pranay. Built with Next.js & Framer Motion
+            </div>
             </motion.div>
           </div>
         </footer>
