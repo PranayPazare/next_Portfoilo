@@ -6,15 +6,21 @@ import { GitHubStars } from "@/components/github-stars"
 const getStargazerCount = unstable_cache(
   async () => {
     try {
+      const headers: HeadersInit = {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      }
+      // GitHub's REST API works unauthenticated at 60 req/hr per IP — fine
+      // for our 1-hour cache. Only add the Authorization header when a real
+      // token is available; sending "Bearer undefined" earned 401s and made
+      // the count silently fall through to 0.
+      if (process.env.GITHUB_API_TOKEN) {
+        headers.Authorization = `Bearer ${process.env.GITHUB_API_TOKEN}`
+      }
+
       const response = await fetch(
         `https://api.github.com/repos/${SOURCE_CODE_GITHUB_REPO}`,
-        {
-          headers: {
-            Accept: "application/vnd.github+json",
-            Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`,
-            "X-GitHub-Api-Version": "2022-11-28",
-          },
-        }
+        { headers }
       )
 
       if (!response.ok) {
@@ -28,7 +34,7 @@ const getStargazerCount = unstable_cache(
     }
   },
   ["github-stargazer-count"],
-  { revalidate: 86400 } // Cache for 1 day (86400 seconds)
+  { revalidate: 3600 } // Cache for 1 hour
 )
 
 export async function NavItemGitHub() {
