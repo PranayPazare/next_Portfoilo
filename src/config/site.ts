@@ -29,8 +29,11 @@ export const MAIN_NAV: NavItem<Route>[] = [
   },
   {
     title: "Resume",
-    href: "/Pranay_Pazare_Resume.pdf" as Route,
-    external: true,
+    href: "/resume" as Route,
+  },
+  {
+    title: "Contact",
+    href: "/contact" as Route,
   },
 ]
 
