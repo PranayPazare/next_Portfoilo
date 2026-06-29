@@ -32,20 +32,6 @@ export function SiteFooter() {
           </Item>
 
           <Item>
-            <dt>Based on</dt>
-            <dd>
-              <a
-                className="link-underline"
-                href="https://github.com/ncdai/chanhdai.com"
-                target="_blank"
-                rel="noopener"
-              >
-                chanhdai.com by @ncdai
-              </a>
-            </dd>
-          </Item>
-
-          <Item>
             <dt>Deployed on</dt>
             <dd>Vercel</dd>
           </Item>

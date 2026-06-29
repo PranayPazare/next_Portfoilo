@@ -22,7 +22,17 @@ export const META_THEME_COLORS = {
   dark: "#09090b",
 }
 
-export const MAIN_NAV: NavItem<Route>[] = []
+export const MAIN_NAV: NavItem<Route>[] = [
+  {
+    title: "Blog",
+    href: "/blog",
+  },
+  {
+    title: "Resume",
+    href: "/Pranay_Pazare_Resume.pdf" as Route,
+    external: true,
+  },
+]
 
 export const MOBILE_NAV: NavItem<Route>[] = [
   {

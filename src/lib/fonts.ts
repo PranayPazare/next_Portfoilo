@@ -1,4 +1,4 @@
-import { IBM_Plex_Serif } from "next/font/google"
+import { IBM_Plex_Serif, Press_Start_2P } from "next/font/google"
 import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 
@@ -14,32 +14,22 @@ const fontSerif = IBM_Plex_Serif({
   variable: "--font-serif",
 })
 
-// const fontPixel = localFont({
-//   src: "../assets/fonts/DepartureMono-Regular.woff2",
-//   weight: "400",
-//   fallback: ["monospace"],
-//   variable: "--font-pixel",
-// })
-
-// const pixelatedMSSansSerif = localFont({
-//   src: [
-//     {
-//       path: "../assets/fonts/ms_sans_serif.woff2",
-//       weight: "400",
-//     },
-//     {
-//       path: "../assets/fonts/ms_sans_serif_bold.woff2",
-//       weight: "700",
-//     },
-//   ],
-//   fallback: ["Arial"],
-//   variable: "--font-98cn",
-// })
+/**
+ * Pixel-art display font used by the brand mark and the footer wordmark.
+ * Closest open-source match to chanhdai.com's chunky hand-drawn letterforms.
+ */
+const fontPixel = Press_Start_2P({
+  weight: ["400"],
+  display: "swap",
+  fallback: ["monospace"],
+  variable: "--font-pixel",
+})
 
 export const fontVariables = cn(
   fontSans.variable,
   fontMono.variable,
   fontSerif.variable,
+  fontPixel.variable,
   "[--font-sans:var(--font-geist-sans)]",
   "[--font-mono:var(--font-geist-mono)]"
 )

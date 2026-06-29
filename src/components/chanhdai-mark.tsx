@@ -8,13 +8,14 @@ export function ChanhDaiMark(props: React.ComponentProps<"svg">) {
       {...props}
     >
       <text
-        x="0"
-        y="208"
+        x="50%"
+        y="50%"
+        textAnchor="middle"
+        dominantBaseline="central"
         fill="currentColor"
-        fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-        fontWeight="700"
-        fontSize="256"
-        letterSpacing="-12"
+        fontFamily="var(--font-pixel), 'Press Start 2P', ui-monospace, monospace"
+        fontSize="180"
+        letterSpacing="2"
       >
         PP
       </text>
@@ -23,5 +24,5 @@ export function ChanhDaiMark(props: React.ComponentProps<"svg">) {
 }
 
 export function getMarkSVG() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 128"><text x="0" y="104" fill="currentColor" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="700" font-size="128" letter-spacing="-6">PP</text></svg>`
+  return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 128"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="currentColor" font-family="'Press Start 2P', ui-monospace, monospace" font-size="90" letter-spacing="1">PP</text></svg>`
 }

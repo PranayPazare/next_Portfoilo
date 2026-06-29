@@ -32,14 +32,14 @@ Currently at [Blocsys Technologies](https://blocsys.com), where I lead architect
 
 Proficient with React/Next.js/Vue on the frontend, Node.js/NestJS/Express on the backend, and Solidity/Rust for smart contracts on Ethereum, Polygon, and Solana. Strong interest in Web3, distributed systems, and shipping high-impact products.
 `,
-  avatar: "https://avatars.githubusercontent.com/u/97777549?v=4",
+  avatar: "/avatar.png",
   avatarVariants: {
-    lightOff: "https://avatars.githubusercontent.com/u/97777549?v=4",
-    lightOn: "https://avatars.githubusercontent.com/u/97777549?v=4",
-    darkOff: "https://avatars.githubusercontent.com/u/97777549?v=4",
-    darkOn: "https://avatars.githubusercontent.com/u/97777549?v=4",
+    lightOff: "/avatar.png",
+    lightOn: "/avatar.png",
+    darkOff: "/avatar.png",
+    darkOn: "/avatar.png",
   },
-  ogImage: "https://avatars.githubusercontent.com/u/97777549?v=4",
+  ogImage: "/avatar.png",
   namePronunciationUrl: "",
   timeZone: "Asia/Kolkata",
   keywords: [
