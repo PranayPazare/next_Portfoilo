@@ -131,12 +131,39 @@ Opens at <http://localhost:3000>. Hot-reload is on by default (Turbopack).
 
 ## Environment variables
 
-| Variable                              | Required | What it does                                                                                          |
-| ------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_APP_URL`                 | optional | Canonical site URL used for OG / sitemap metadata. Defaults to `https://next-portfoilo.vercel.app`.   |
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`    | optional | Access key from <https://web3forms.com>. Without it, the contact form returns a clear "not configured" error instead of silently failing. |
+| Variable                                  | Required | What it does                                                                                                                                                 |
+| ----------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_APP_URL`                     | optional | Canonical site URL used for OG / sitemap metadata. Defaults to `https://next-portfoilo.vercel.app`.                                                          |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`        | optional | Access key from <https://web3forms.com>. Without it, the contact form returns a clear "not configured" error instead of silently failing.                    |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`    | optional | Google Search Console HTML-tag verification token. Renders as `<meta name="google-site-verification" content="…" />`. See [Search Console setup](#google-search-console-setup) below. |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION`      | optional | Bing Webmaster Tools verification token. Renders as `<meta name="msvalidate.01" content="…" />`.                                                              |
+| `NEXT_PUBLIC_YANDEX_VERIFICATION`         | optional | Yandex Webmaster verification token.                                                                                                                          |
 
 Set them on Vercel under **Project → Settings → Environment Variables** for all environments (Production, Preview, Development).
+
+---
+
+## Google Search Console setup
+
+The site exposes a real sitemap at `/sitemap.xml` (lists all static routes + every blog post with their `date` as `lastModified`) and a `robots.txt` that points crawlers at it. Submitting the sitemap to Google Search Console is what gets the site indexed.
+
+1. Go to <https://search.google.com/search-console> and add a property:
+   - Pick **URL prefix** (not Domain — that requires DNS access).
+   - Enter the full URL including protocol: `https://next-portfoilo.vercel.app/` (or your custom domain once configured).
+2. Choose the **HTML tag** verification method. Google shows a snippet like:
+   ```html
+   <meta name="google-site-verification" content="abc123…XYZ" />
+   ```
+   Copy just the `content="…"` value.
+3. In Vercel → Project → Settings → Environment Variables, add:
+   - Name: `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+   - Value: the token from step 2
+   - Environments: **Production** (Preview/Dev optional)
+4. Redeploy (push any commit, or hit "Redeploy" on the latest deployment). The meta tag will be on every page.
+5. Back in Search Console, click **Verify**. Should succeed instantly.
+6. Once verified, in Search Console go to **Sitemaps** → submit `sitemap.xml`. Google will start crawling within hours.
+
+Same flow applies to Bing Webmaster Tools (`NEXT_PUBLIC_BING_SITE_VERIFICATION`) and Yandex Webmaster (`NEXT_PUBLIC_YANDEX_VERIFICATION`) if you want them too.
 
 ---
 

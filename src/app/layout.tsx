@@ -110,6 +110,15 @@ export const metadata: Metadata = {
     icon: USER.avatar,
     apple: USER.avatar,
   },
+  verification: {
+    // Set via env vars on Vercel. Each one renders as a <meta> tag.
+    // Leaving the var unset simply omits the tag.
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
   other: {
     "geo.region": "IN-MH",
     "geo.placename": "Pune",
