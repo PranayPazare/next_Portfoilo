@@ -253,57 +253,56 @@ export function ChanhDaiMarkIsometric() {
             3. Top face background mask + crosshatch pattern.
             4. Top face base outline.
             5. Top face mouse-tracking gradient overlay.
+
+          Banner orientation is the default 30° isometric (a 360° rotation is
+          equivalent to no rotation, so no extra transform is applied here).
         */}
 
-          {/* Side faces — subtle darker fill + outline strokes for the
-              vertical edges */}
-          <path d={PP_SIDES_PATH} fill="var(--side)" />
-          <path
-            d={PP_SIDES_PATH}
-            fill="none"
-            stroke="var(--stroke)"
-            strokeWidth="1.2"
-            strokeLinejoin="round"
-          />
+        {/* Side faces — subtle darker fill + outline strokes for the
+            vertical edges */}
+        <path d={PP_SIDES_PATH} fill="var(--side)" />
+        <path
+          d={PP_SIDES_PATH}
+          fill="none"
+          stroke="var(--stroke)"
+          strokeWidth="1.2"
+          strokeLinejoin="round"
+        />
 
-          {/* Floor-edge stroke — outlines the bottom silhouette of the block */}
-          <path
-            d={PP_FLOOR_PATH}
-            fillRule="evenodd"
-            fill="none"
-            stroke="var(--stroke)"
-            strokeWidth="1.2"
-            strokeLinejoin="round"
-          />
+        {/* Floor-edge stroke — outlines the bottom silhouette of the block */}
+        <path
+          d={PP_FLOOR_PATH}
+          fillRule="evenodd"
+          fill="none"
+          stroke="var(--stroke)"
+          strokeWidth="1.2"
+          strokeLinejoin="round"
+        />
 
-          {/* Top face — background mask, crosshatch pattern, outline, and the
-              mouse-tracking gradient highlight overlay */}
-          <path
-            d={PP_TOP_PATH}
-            fillRule="evenodd"
-            fill="var(--background)"
-          />
-          <path
-            d={PP_TOP_PATH}
-            fillRule="evenodd"
-            fill={`url(#${ids.facePattern})`}
-          />
-          <path
-            d={PP_TOP_PATH}
-            fillRule="evenodd"
-            fill="none"
-            stroke="var(--stroke)"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-          <path
-            d={PP_TOP_PATH}
-            fillRule="evenodd"
-            fill="none"
-            stroke={`url(#${ids.radialGradient})`}
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
+        {/* Top face — background mask, crosshatch pattern, outline, and the
+            mouse-tracking gradient highlight overlay */}
+        <path d={PP_TOP_PATH} fillRule="evenodd" fill="var(--background)" />
+        <path
+          d={PP_TOP_PATH}
+          fillRule="evenodd"
+          fill={`url(#${ids.facePattern})`}
+        />
+        <path
+          d={PP_TOP_PATH}
+          fillRule="evenodd"
+          fill="none"
+          stroke="var(--stroke)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <path
+          d={PP_TOP_PATH}
+          fillRule="evenodd"
+          fill="none"
+          stroke={`url(#${ids.radialGradient})`}
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
       </motion.g>
     </motion.svg>
   )
