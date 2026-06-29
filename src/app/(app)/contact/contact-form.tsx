@@ -72,7 +72,7 @@ export function ContactForm() {
       ref={formRef}
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-5"
     >
       {/* Honeypot — bots that fill every field will trip this and Web3Forms
           will drop the submission. */}
@@ -84,7 +84,7 @@ export function ContactForm() {
         aria-hidden
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" name="name" required autoComplete="name" />
         <Field
           label="Email"
@@ -106,13 +106,13 @@ export function ContactForm() {
         placeholder="What would you like to talk about?"
       />
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <div className="screen-line-top flex flex-wrap items-center gap-x-4 gap-y-3 pt-5">
         <button
           type="submit"
           disabled={state === "submitting"}
           className={cn(
-            "inline-flex items-center gap-2 rounded-md border border-line bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity",
-            "hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            "inline-flex items-center gap-2 rounded-md border border-line bg-muted/40 px-3.5 py-2 text-sm transition-colors",
+            "hover:bg-muted/70 disabled:cursor-not-allowed disabled:opacity-50"
           )}
         >
           {state === "submitting" ? (
@@ -126,14 +126,14 @@ export function ContactForm() {
         </button>
 
         {state === "success" && (
-          <p className="flex items-center gap-1.5 text-sm text-emerald-500">
-            <CheckCircle2Icon className="size-4" aria-hidden />
+          <p className="flex items-center gap-1.5 font-mono text-xs text-emerald-500">
+            <CheckCircle2Icon className="size-3.5" aria-hidden />
             Message sent — I&apos;ll reply soon.
           </p>
         )}
         {state === "error" && (
-          <p className="flex items-center gap-1.5 text-sm text-red-500">
-            <TriangleAlertIcon className="size-4" aria-hidden />
+          <p className="flex items-center gap-1.5 font-mono text-xs text-red-500">
+            <TriangleAlertIcon className="size-3.5" aria-hidden />
             {error}
           </p>
         )}
@@ -161,36 +161,42 @@ function Field({
   autoComplete,
   placeholder,
 }: FieldProps) {
-  const shared = cn(
-    "w-full rounded-md border border-line bg-muted/30 px-3 py-2 text-sm",
-    "transition-colors outline-none placeholder:text-muted-foreground/60",
-    "focus:border-foreground/30 focus:bg-muted/60"
+  const inputClass = cn(
+    "w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground/50",
+    textarea ? "min-h-32 resize-y px-3.5 py-2.5" : "px-3.5 py-2.5"
   )
 
   return (
-    <label className="flex flex-col gap-1.5">
-      <span className="text-sm text-muted-foreground">
+    <label className="flex flex-col gap-2">
+      <span className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
         {label}
-        {required && <span className="ml-0.5 text-red-500">*</span>}
+        {required && <span className="ml-1 text-foreground/70">*</span>}
       </span>
-      {textarea ? (
-        <textarea
-          name={name}
-          required={required}
-          placeholder={placeholder}
-          rows={6}
-          className={cn(shared, "resize-y")}
-        />
-      ) : (
-        <input
-          name={name}
-          type={type}
-          required={required}
-          autoComplete={autoComplete}
-          placeholder={placeholder}
-          className={shared}
-        />
-      )}
+      <div
+        className={cn(
+          "group/field overflow-hidden rounded-lg border border-line bg-muted/40 transition-colors",
+          "focus-within:border-foreground/25 focus-within:bg-muted/60"
+        )}
+      >
+        {textarea ? (
+          <textarea
+            name={name}
+            required={required}
+            placeholder={placeholder}
+            rows={6}
+            className={inputClass}
+          />
+        ) : (
+          <input
+            name={name}
+            type={type}
+            required={required}
+            autoComplete={autoComplete}
+            placeholder={placeholder}
+            className={inputClass}
+          />
+        )}
+      </div>
     </label>
   )
 }
