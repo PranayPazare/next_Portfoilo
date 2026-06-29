@@ -1,5 +1,6 @@
 "use client"
 
+import type { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -12,10 +13,7 @@ export function SiteHeaderNav({ items }: { items: NavItem<string>[] }) {
   if (!items.length) return null
 
   return (
-    <nav
-      aria-label="Primary"
-      className="hidden items-center gap-5 sm:flex"
-    >
+    <nav aria-label="Primary" className="hidden items-center gap-5 sm:flex">
       {items.map((item) => {
         const isActive =
           !item.external &&
@@ -44,7 +42,7 @@ export function SiteHeaderNav({ items }: { items: NavItem<string>[] }) {
         return (
           <Link
             key={item.href}
-            href={item.href}
+            href={item.href as Route}
             aria-current={isActive ? "page" : undefined}
             className={baseClass}
           >
