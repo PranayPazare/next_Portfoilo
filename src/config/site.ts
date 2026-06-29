@@ -4,11 +4,19 @@ import type { NavItem } from "@/types/nav"
 import { SOCIAL } from "@/features/portfolio/data/social-links"
 import { USER } from "@/features/portfolio/data/user"
 
+/**
+ * SEO-optimized description (~155 chars, the sweet spot for Google snippets).
+ * Includes high-intent terms — role, location, chains, frameworks — without
+ * keyword-stuffing.
+ */
+const SEO_DESCRIPTION =
+  "Pranay Pazare — Blockchain and Full Stack Developer in Pune, India. 4+ years shipping Web3 dApps, ERC-4337 smart wallets, and RWA tokenization on Ethereum, Polygon, and Solana."
+
 export const SITE_INFO = {
   name: USER.displayName,
-  url: process.env.NEXT_PUBLIC_APP_URL || "https://pranaypazare.dev",
+  url: process.env.NEXT_PUBLIC_APP_URL || "https://next-portfoilo.vercel.app",
   ogImage: USER.ogImage,
-  description: USER.bio,
+  description: SEO_DESCRIPTION,
   keywords: USER.keywords,
 }
 
