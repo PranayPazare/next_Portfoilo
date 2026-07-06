@@ -107,9 +107,16 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: USER.avatar,
-    apple: USER.avatar,
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" },
+    ],
   },
+  manifest: "/manifest.webmanifest",
   verification: {
     // Set via env vars on Vercel. Each one renders as a <meta> tag.
     // Leaving the var unset simply omits the tag.

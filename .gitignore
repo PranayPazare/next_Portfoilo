@@ -43,3 +43,17 @@ next-env.d.ts
 
 # ncdai
 .ncdai
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# local tooling
+.claude/
+.turbo/
+.cache/
+
+# logs
+*.log
